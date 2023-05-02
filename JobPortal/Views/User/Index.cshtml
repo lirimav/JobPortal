@@ -1,0 +1,57 @@
+﻿@model List<JobPortal.Models.ViewModels.UsersVm>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>User Manager</h2>
+
+<a href="@Url.Action("Register", "Account")" class="btn btn-primary mb-2">Add new User</a>
+<div class="row" style="margin-bottom: 4em;">
+    <div class="col-md-12">
+        <table class="table table-bordered">
+            <tr>
+                <th>
+                    Email
+                </th>
+                <th>
+                    Full name
+                </th>
+                <th>
+                    User Id
+                </th>
+                <th>
+                    Date added
+                </th>
+                <th>
+                    Action
+                </th>
+
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @item.Email
+                    </td>
+                    <td>
+                        @item.FullName
+                    </td>
+                    <td>
+                        @item.UserId
+                    </td>
+                    <td>
+                        @item.InsertedOn.ToString("dd MMMM yyyy HH:mm")
+                    </td>
+                    <td>
+                        <div class="col gap-2 justify-content-center align-items-center">
+                            @Html.ActionLink("Edit", "EditUser", "User", new { Id = item.UserId }, null)
+                            @Html.ActionLink("Delete", "RemoveUser", "User", new { Id = item.UserId }, null)
+                            @Html.ActionLink("Change Password", "ResetPassword", "Account", new { code = item.UserId, email = item.Email }, null)
+                        </div>
+                    </td>
+
+                </tr>
+            }
+        </table>
+    </div>
+</div>

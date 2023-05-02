@@ -1,0 +1,44 @@
+﻿@using Microsoft.AspNet.Identity
+@using Microsoft.AspNet.Identity.EntityFramework
+@using JobPortal.Models;
+@{
+    var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
+}
+@if (Request.IsAuthenticated && userManager.IsInRole(User.Identity.GetUserId(), "Admin"))
+{
+    <ul class="navbar-nav flex-grow-1 bol">
+        <li style="font-weight:700;">@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+        <li style="font-weight:700;">@Html.ActionLink("About", "About", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+        <li style="font-weight:700;">@Html.ActionLink("Contact", "Contact", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+        <li style="font-weight:700;">@Html.ActionLink("Users", "Index", "User", new { area = "" }, new { @class = "nav-link" })</li>
+        <li style="font-weight:700;">@Html.ActionLink("Jobs", "Index", "Jobs", new { area = "" }, new { @class = "nav-link" })</li>
+        <li style="font-weight:700;">@Html.ActionLink("Applicants", "ManageApplicants", "Jobs", new { area = "" }, new { @class = "nav-link" })</li>
+    </ul>
+}
+else if (Request.IsAuthenticated && userManager.IsInRole(User.Identity.GetUserId(), "Employer"))
+{
+    <ul class="navbar-nav flex-grow-1 bol">
+        <li style="font-weight:700;">@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+        <li style="font-weight:700;">@Html.ActionLink("About", "About", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+        <li style="font-weight:700;">@Html.ActionLink("Contact", "Contact", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+        <li style="font-weight:700;">@Html.ActionLink("Jobs", "Index", "Jobs", new { area = "" }, new { @class = "nav-link" })</li>
+        <li style="font-weight:700;">@Html.ActionLink("Applicants", "ManageApplicants", "Jobs", new { area = "" }, new { @class = "nav-link" })</li>
+    </ul>
+}
+else if (Request.IsAuthenticated && userManager.IsInRole(User.Identity.GetUserId(), "Client"))
+{
+    <ul class="navbar-nav flex-grow-1 bol">
+        <li style="font-weight:700;">@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+        <li style="font-weight:700;">@Html.ActionLink("About", "About", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+        <li style="font-weight:700;">@Html.ActionLink("Contact", "Contact", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+        <li style="font-weight:700;">@Html.ActionLink("My Jobs", "Index", "JobApplication", new { area = "" }, new { @class = "nav-link" })</li>
+    </ul>
+}
+else
+{
+    <ul class="navbar-nav flex-grow-1 bol">
+        <li style="font-weight:700;">@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+        <li style="font-weight:700;">@Html.ActionLink("About", "About", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+        <li style="font-weight:700;">@Html.ActionLink("Contact", "Contact", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+    </ul>
+}

@@ -1,0 +1,113 @@
+﻿@model List<JobPortal.Models.ViewModels.JobsVm>
+@using Microsoft.AspNet.Identity
+@using Microsoft.AspNet.Identity.EntityFramework
+@using JobPortal.Models;
+@{
+    var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
+    var context = new ApplicationDbContext();
+}
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Jobs List</h2>
+<a href="@Url.Action("GoToAddNewJob", "Jobs")" class="btn btn-primary mb-2">Add new Job</a>
+
+<div class="row" style="margin-bottom: 4em;">
+    <div class="col-md-12" style="overflow-x:scroll; overflow-y:hidden;">
+        <table class="table table-bordered" style="width: 100%;">
+            <tr>
+                <th>
+                    Company
+                </th>
+                <th>
+                    Job title
+                </th>
+                <th>
+                    Description
+                </th>
+                <th>
+                    Location
+                </th>
+                <th>
+                    Category
+                </th>
+                <th>
+                    Date added
+                </th>
+                <th>
+                    Expiration date
+                </th>
+                <th>
+                    Applicants
+                </th>
+                <th>
+                    Action
+                </th>
+                @if (Request.IsAuthenticated && userManager.IsInRole(User.Identity.GetUserId(), "Admin"))
+                {
+                    <th>Added by</th>
+                }
+
+            </tr>
+            @foreach (var item in Model)
+            {
+                var user = userManager.FindById(item.UserId);
+                <tr>
+                    <td>
+                        @item.Company
+                    </td>
+                    <td>
+                        @item.Job
+                    </td>
+                    <td style="text-overflow: ellipsis; overflow:hidden; white-space:nowrap;max-width: 100px;">
+                        @item.Description
+                    </td>
+                    <td>
+                        @item.Location
+                    </td>
+                    <td>
+                        @{var Name = context.Categories.FirstOrDefault(c => c.Id == item.CategoriesId);}
+                        @Name.Name
+                    </td>
+                    <td>
+                        @item.InsertedOn.ToString("dd MMMM yyyy HH:mm")
+                    </td>
+                    <td>
+                        @item.ExpirationDate.ToString("d")
+                    </td>
+                    @if (item.JobApplications != null && item.JobApplications.Any())
+                    {
+                        <td>
+                            @foreach (var applicant in item.JobApplications)
+                            {
+                                if (applicant != null)
+                                {
+                                    var fullName = userManager.FindById(applicant.ClientId);
+                                    <p>@fullName.FullName</p>
+                                    @*<p>@applicant.ClientId</p>*@
+                                }
+                            }
+                        </td>
+                    }
+                    else
+                    {
+                        <td>
+                            None
+                        </td>
+                    }
+                    <td>
+                        <div class="col gap-2 justify-content-center">
+                            @Html.ActionLink("Edit", "JobEdit", "Jobs", new { Id = item.Id }, null)
+                            @Html.ActionLink("Delete", "DeleteJob", "Jobs", new { Id = item.Id }, null)
+                        </div>
+                    </td>
+                    @if (Request.IsAuthenticated && userManager.IsInRole(User.Identity.GetUserId(), "Admin"))
+                    {
+                        <td>@user.FullName</td>
+                    }
+                </tr>
+            }
+        </table>
+    </div>
+</div>

@@ -1,0 +1,83 @@
+﻿@model JobPortal.Models.RegisterViewModel
+@{
+    ViewBag.Title = "Register";
+}
+
+<main aria-labelledby="title" style="margin-bottom: 4em;">
+    <h2 id="title">@ViewBag.Title</h2>
+
+    @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+        <h4>Create a new account.</h4>
+        <hr />
+        <div class="row gap-2">
+            @Html.ValidationSummary("", new { @class = "text-danger" })
+            <div class="row">
+                @Html.LabelFor(m => m.FullName, new { @class = "col-md-2 col-form-label" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(m => m.FullName, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="row">
+                @Html.LabelFor(m => m.Email, new { @class = "col-md-2 col-form-label" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="row">
+                @Html.LabelFor(m => m.PhoneNr, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(m => m.PhoneNr, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="row">
+                @Html.LabelFor(m => m.Address, new { @class = "col-md-2 col-form-label" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(m => m.Address, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="row">
+                @Html.LabelFor(m => m.Password, new { @class = "col-md-2 col-form-label" })
+                <div class="col-md-10">
+                    @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="row">
+                @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 col-form-label" })
+                <div class="col-md-10">
+                    @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.CategoriesId, new { @class = "col-md-2 me-2" })
+                @Html.DropDownListFor(m => m.CategoriesId,
+                            new SelectList(ViewBag.Categories, "Id", "Name"), new { @style = "padding: 5px;margin-left: -12px;border: 1px solid #ced4da;border-radius: 5px;" })
+            </div>
+
+            @* <div class="row"> @style = "padding: 5px;margin-left: -12px;border: 1px solid #ced4da;border-radius: 5px;"
+            @Html.LabelFor(m => m.Role, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+
+                @Html.DropDownListFor(model => model.Role,
+                        new List<SelectListItem> {
+                             new SelectListItem { Value = "1" , Text = "Admin" },
+                             new SelectListItem { Value = "2" , Text = "Employer" },
+                              new SelectListItem { Value = "3" , Text = "Client" },
+
+                          },
+                        new { @class = "col-md-2 control-label rounded" })
+            </div>
+        </div>*@
+            <div class="row">
+                <div class="offset-md-2 col-md-10">
+                    <input type="submit" value="Register" class="btn btn-primary" />
+                </div>
+            </div>
+        </div>
+    }
+</main>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

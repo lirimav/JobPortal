@@ -1,0 +1,177 @@
+﻿@model JobPortal.Models.IndexViewModel
+@using Microsoft.AspNet.Identity
+@using Microsoft.AspNet.Identity.EntityFramework
+@using JobPortal.Models;
+@{
+    var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
+    var category = new ApplicationDbContext().Categories.Find(Model.CategoriesId);
+}
+@{
+    ViewBag.Title = "Manage";
+}
+
+<main aria-labelledby="title" style="margin-bottom: 4em;">
+    <h2 id="title">Account Profile</h2>
+    <p class="text-success">@ViewBag.StatusMessage</p>
+    <div>
+        <h4>View and edit your account profile</h4>
+        <hr />
+        <div class="accDiv">
+            <div class="col-lg-8">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Full Name</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0">@Model.FullName</p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Email</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0">@Model.Email</p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Phone</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0">@Model.PhoneNr</p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Address</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0">@Model.Address</p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Registration Date</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0">@Model.InsertedOn.ToString("d")</p>
+                            </div>
+                        </div>
+                        @if (Request.IsAuthenticated && userManager.IsInRole(User.Identity.GetUserId(), "Admin")
+                        || Request.IsAuthenticated && userManager.IsInRole(User.Identity.GetUserId(), "Employer"))
+                        {
+                        }
+                        else
+                        {
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <p class="mb-0">Job Category</p>
+                                </div>
+                                <div class="col-sm-9">
+                                    <p class="text-muted mb-0">@category.Name</p>
+                                </div>
+                            </div>
+                        }
+
+                    </div>
+                </div>
+                @if (Request.IsAuthenticated && userManager.IsInRole(User.Identity.GetUserId(), "Admin")
+                    || Request.IsAuthenticated && userManager.IsInRole(User.Identity.GetUserId(), "Employer"))
+                {
+                    <p></p>
+                }
+                else
+                {
+                    <p class="editP">
+                        @Html.ActionLink("My jobs", "Index", "JobApplication")
+                    </p>
+                }
+                <p class="editP">
+                    @Html.ActionLink("Edit account", "EditUser", "User", new { Id = Model.Id }, null)
+                </p>
+                <p class="">
+                    @if (Model.HasPassword)
+                    {
+                        @Html.ActionLink("Change your password", "ChangePassword", new { area = "" }, new { @class = "btn btn-outline-dark" })
+                    }
+                    else
+                    {
+                        @Html.ActionLink("Create", "SetPassword")
+                    }
+                </p>
+                @*<dl class="dl-horizontal" style="display:flex;align-items:center; gap: 5px;">
+                <dd>
+
+                </dd>
+                <dt>External Logins:</dt>
+        <dd>
+            @Model.Logins.Count [
+            @Html.ActionLink("Manage", "ManageLogins") ]
+        </dd>*@
+                @*
+        Phone Numbers can used as a second factor of verification in a two-factor authentication system.
+
+        See <a href="https://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
+            for details on setting up this ASP.NET application to support two-factor authentication using SMS.
+
+        Uncomment the following block after you have set up two-factor authentication
+                *@
+                @*
+        <dt>Phone Number:</dt>
+        <dd>
+            @(Model.PhoneNumber ?? "None")
+            @if (Model.PhoneNumber != null)
+            {
+                <br />
+                <text>[&nbsp;&nbsp;@Html.ActionLink("Change", "AddPhoneNumber")&nbsp;&nbsp;]</text>
+                using (Html.BeginForm("RemovePhoneNumber", "Manage", FormMethod.Post, new { role = "form" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <text>[<input type="submit" value="Remove" class="btn-link" />]</text>
+                }
+            }
+            else
+            {
+                <text>[&nbsp;&nbsp;@Html.ActionLink("Add", "AddPhoneNumber")
+            }
+        </dd>
+                *@
+                @*<dt>Two-Factor Authentication:</dt>
+        <dd>
+            <p>
+                There are no two-factor authentication providers configured. See <a href="https://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
+                for details on setting up this ASP.NET application to support two-factor authentication.
+            </p>*@
+                @*@if (Model.TwoFactor)
+        {
+            using (Html.BeginForm("DisableTwoFactorAuthentication", "Manage", FormMethod.Post, new { role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                <text>Enabled
+                <input type="submit" value="Disable" class="btn btn-link" />
+                </text>
+            }
+        }
+        else
+        {
+            using (Html.BeginForm("EnableTwoFactorAuthentication", "Manage", FormMethod.Post, new { role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                <text>Disabled
+                <input type="submit" value="Enable" class="btn btn-link" />
+                </text>
+            }
+        }</dd>
+            </dl>*@
+            </div>
+        </div>
+    </div>
+</main>

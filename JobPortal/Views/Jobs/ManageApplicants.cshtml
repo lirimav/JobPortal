@@ -1,0 +1,81 @@
+﻿@model List<JobPortal.Models.ViewModels.JobsVm>
+@using Microsoft.AspNet.Identity
+@using Microsoft.AspNet.Identity.EntityFramework
+@using JobPortal.Models;
+@{
+    var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
+
+}
+@{
+    ViewBag.Title = "ManageApplicants";
+}
+
+<h2>Manage Applicants</h2>
+<hr />
+<div class="row" style="margin-bottom: 4em;">
+    <div class="col-md-12">
+        <table class="table table-bordered">
+            <tr>
+                <th>
+                    Company
+                </th>
+                <th>
+                    Job title
+                </th>
+                <th>
+                    Applicants
+                </th>
+            </tr>
+            @foreach (var item in Model)
+            {
+                var user = userManager.FindById(item.UserId);
+                <tr>
+                    <td>
+                        @item.Company
+                    </td>
+                    <td>
+                        @item.Job
+                    </td>
+                    @if (item.JobApplications != null && item.JobApplications.Any())
+                    {
+                        <td>
+                            <table class="table table-bordered">
+                                
+                                @foreach (var applicant in item.JobApplications)
+                                {
+                                    if (applicant != null)
+                                    {
+                                        var fullName = userManager.FindById(applicant.ClientId);
+
+                                        using (Html.BeginForm("RejectUser", "Jobs", new { jobId = item.Id, userId = applicant.ClientId }, FormMethod.Post))
+                                        {
+                                   
+                                            <tr>
+                                                <th style="max-width: 5em; font-weight: 500;">
+                                                    @fullName.FullName
+                                                </th>
+                                                <td style="max-width: 2em;text-align:center;">
+                                                    <button 
+                                                        style="border: none; background-color: #dc3545; color: white;border-radius: 5px;"
+                                                        type="submit">
+                                                        Reject
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+                                }
+                            </table>
+                        </td>
+                    }
+                    else
+                    {
+                        <td>
+                            None
+                        </td>
+                    }
+                </tr>
+            }
+        </table>
+    </div>
+</div>

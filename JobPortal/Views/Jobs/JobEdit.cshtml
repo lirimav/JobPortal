@@ -1,0 +1,64 @@
+﻿@model JobPortal.Models.Jobs
+@{
+    ViewBag.Title = "JobEdit";
+}
+
+<h2>Edit Job</h2>
+<div style="margin-bottom: 4em;">
+    @using (Html.BeginForm("SaveJob", "Jobs", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+        <hr />
+        @Html.HiddenFor(x => x.Id);
+        @Html.ValidationSummary("", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(m => m.Company, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.Company, new { @class = "form-control" })
+            </div>
+        </div>
+        <br>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Job, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.Job, new { @class = "form-control" })
+            </div>
+        </div>
+        <br>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Description, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(m => m.Description, new { @class = "form-control" })
+            </div>
+        </div>
+        <br>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Location, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.Location, new { @class = "form-control" })
+            </div>
+        </div>
+        <br>
+        <div class="form-group">
+            @Html.LabelFor(m => m.ExpirationDate)
+            @Html.TextBoxFor(m => m.ExpirationDate, new { @class = "form-control", type = "date", Value = Model.ExpirationDate.ToString("yyyy-MM-dd") })
+        </div>
+        <br>
+        <div class="form-group">
+            @Html.LabelFor(m => m.CategoriesId, new { @class = "col-md-2 me-2" })
+            @Html.DropDownListFor(m => m.CategoriesId,
+                       new SelectList(ViewBag.Categories, "Id", "Name"), new { @style = "padding: 5px;margin-left: -20px;border: 1px solid #ced4da;border-radius: 5px;" })
+        </div>
+        <br>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" class="btn btn-outline-dark" value="Save" />
+            </div>
+        </div>
+    }
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

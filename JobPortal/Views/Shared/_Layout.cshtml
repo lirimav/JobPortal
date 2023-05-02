@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - JobPortal</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link href="~/Content/Site.css" rel="stylesheet" />
+</head>
+<body>
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm bg-light">
+        <div class="container">
+            @Html.ActionLink("JobPortal", "Index", "Home", new { area = "" }, new { @class = "navbar-brand fw-bold" })
+            <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Toggle navigation" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
+                 @Html.Partial("links")
+                 @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </nav>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <div style="display: flex; justify-content: space-around; padding-top: 4rem /* 64px */;">
+                <div style="display: flex; flex-direction: column; font-weight: 600; gap: 0.5rem /* 8px */;">
+                    <p style="color: rgb(31 41 55 ); padding-left: 6px; font-weight: 700;">Company</p>
+                    <p>- <a href="/">@Html.ActionLink("About Us", "About", "Home", new { area = "" }, new { @class = "" })</a></p>
+                    <p>- <a href="/">@Html.ActionLink("Careers", "Index", "Home", new { area = "" }, new { @class = "" })</a></p>
+                    <p>- <a href="/">@Html.ActionLink("Contact", "Contact", "Home", new { area = "" }, new { @class = "" })</a></p>
+                </div>
+
+                <div style="display: flex; flex-direction: column; font-weight: 600; gap: 0.5rem /* 8px */;">
+                    <p style="color: rgb(31 41 55 );padding-left: 6px;font-weight: 700;">Social</p>
+                    <p>-<a href="https://twitter.com/" target="_blank"> Twitter</a></p>
+                    <p>-<a href="https://linkedin.com/" target="_blank"> LinkedIn</a></p>
+                    <p>-<a href="https://facebook.com/" target="_blank"> Facebook</a></p>
+                    <p>-<a href="https://github.com/" target="_blank"> GitHub</a></p>
+                    <p>-<a href="https://dribble.com/" target="_blank"> Dribble</a></p>
+                </div>
+            </div>
+            <div style="display: flex; flex-direction: row; align-items: center; justify-content: space-around; padding-top: 5rem /* 80px */;">
+                <div style="display: flex; align-items: center; ">
+                    <h1 style="font-weight: 700; padding-top: 0.25rem; font-size: 1.5em;">JobPortal</h1>
+                </div>
+
+                <div>
+                    <p className='color: rgb(55 65 81)'>&copy; @DateTime.Now.Year JobPortal. All rights reseverd.</p>
+                </div>
+            </div>
+
+            <p></p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

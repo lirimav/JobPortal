@@ -1,0 +1,51 @@
+﻿@model JobPortal.Models.ApplicationUser
+@{
+    ViewBag.Title = "EditUser";
+}
+
+<h2>Edit Account</h2>
+
+@using (Html.BeginForm("SaveUser", "User", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    <hr />
+    @Html.HiddenFor(x => x.Id);
+<div style="margin-bottom: 4em;">
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(m => m.FullName, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.FullName, new { @class = "form-control" })
+        </div>
+    </div>
+    <br>
+    <div class="form-group">
+        @Html.LabelFor(m => m.PhoneNr, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.PhoneNr, new { @class = "form-control" })
+        </div>
+    </div>
+    <br>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Address, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.Address, new { @class = "form-control" })
+        </div>
+    </div>
+    <br>
+    <div class="form-group">
+        @Html.LabelFor(m => m.CategoriesId, new { @class = "col-md-2 me-2" })
+        @Html.DropDownListFor(m => m.CategoriesId,
+                   new SelectList(ViewBag.Categories, "Id", "Name"), new { @style = "padding: 5px;margin-left: -20px;border: 1px solid #ced4da;border-radius: 5px;" })
+    </div>
+    <br>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" class="btn btn-outline-dark" value="Save" />
+        </div>
+    </div>
+</div>
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
