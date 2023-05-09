@@ -6,7 +6,8 @@
     <title>@ViewBag.Title - JobPortal</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-    <link href="~/Content/Site.css" rel="stylesheet" />
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css"/>
+    <asp:ContentPlaceHolder ID="HeadContent" runat="server" />
 </head>
 <body>
     <nav class="navbar navbar-expand-sm navbar-toggleable-sm bg-light">
@@ -45,7 +46,7 @@
             </div>
             <div style="display: flex; flex-direction: row; align-items: center; justify-content: space-around; padding-top: 5rem /* 80px */;">
                 <div style="display: flex; align-items: center; ">
-                    <h1 style="font-weight: 700; padding-top: 0.25rem; font-size: 1.5em;">JobPortal</h1>
+                    <h1 style="font-weight: 700; padding-top: 0.25rem; font-size: 1.5em;user-select: none;">JobPortal</h1>
                 </div>
 
                 <div>

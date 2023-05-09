@@ -20,9 +20,10 @@ namespace JobPortal.Models
             return userIdentity;
         }
         [Required]
+        [Display(Name = "Full Name")]
         [StringLength(40, ErrorMessage = "Full name cannot be longer than 40 characters.")]
         public string FullName { get; set; }
-
+        [Display(Name = "Phone Nr.")]
         [Required]
         [StringLength(30, ErrorMessage = "Phone number cannot be longer than 30 characters.")]
         public string PhoneNr { get; set; }

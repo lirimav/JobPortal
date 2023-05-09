@@ -45,10 +45,10 @@
             @Html.TextBoxFor(m => m.ExpirationDate, new { @class = "form-control", type = "date", Value = Model.ExpirationDate.ToString("yyyy-MM-dd") })
         </div>
         <br>
-        <div class="form-group">
+        <div class="form-group" style="max-width: 54em;">
             @Html.LabelFor(m => m.CategoriesId, new { @class = "col-md-2 me-2" })
             @Html.DropDownListFor(m => m.CategoriesId,
-                       new SelectList(ViewBag.Categories, "Id", "Name"), new { @style = "padding: 5px;margin-left: -20px;border: 1px solid #ced4da;border-radius: 5px;" })
+                       new SelectList(ViewBag.Categories, "Id", "Name"), new { @style = "padding: 5px;border: 1px solid #ced4da;border-radius: 5px;" })
         </div>
         <br>
 

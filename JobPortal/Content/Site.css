@@ -77,10 +77,6 @@ textarea {
     display: flex;
     overflow: hidden;
 }
-.catBtn:hover{
-    color:red;
-    background-color: #838383;
-}
 .div6 {
     padding-left: 5rem /* 80px */;
     padding-right: 5rem /* 80px */;
@@ -118,7 +114,6 @@ textarea {
 }
 a{
     text-decoration: none;
-    color: black;
 }
 .div10{
     margin-bottom: 10em;
@@ -160,14 +155,4 @@ a{
 }
 .editP:hover a {
     color: white;
-}
-
-/*Edit and Delete Buttons*/
-.editBtn a {
-    border: 1px solid black !important;
-    border-radius: 5px !important;
-    background-color: #212529 !important;
-}
-.editBtn:hover a {
-    color: white !important;
 }

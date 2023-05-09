@@ -16,7 +16,7 @@ namespace JobPortal.Models
         [Required(ErrorMessage = "The Company field is required.")]
         [StringLength(40, ErrorMessage = "Company cannot be longer than 40 characters.")]
         public string Company { get; set; }
-
+        [Display(Name = "Job Title")]
         [Required(ErrorMessage = "The Job Title field is required.")]
         [StringLength(40, ErrorMessage = "Job title cannot be longer than 40 characters.")]
         public string Job { get; set; }
@@ -27,7 +27,7 @@ namespace JobPortal.Models
         [Required(ErrorMessage = "The Location field is required.")]
         [StringLength(20, ErrorMessage = "Location cannot be longer than 20 characters.")]
         public string Location { get; set; }
-
+        [Display(Name = "Expiration Date")]
         [Required(ErrorMessage = "The Expiration Date field is required.")]
         [DataType(DataType.Date)]
         public DateTime ExpirationDate { get; set; }

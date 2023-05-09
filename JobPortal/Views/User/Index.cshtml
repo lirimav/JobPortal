@@ -44,12 +44,11 @@
                     </td>
                     <td>
                         <div class="col gap-2 justify-content-center align-items-center">
-                            @Html.ActionLink("Edit", "EditUser", "User", new { Id = item.UserId }, null)
-                            @Html.ActionLink("Delete", "RemoveUser", "User", new { Id = item.UserId }, null)
-                            @Html.ActionLink("Change Password", "ResetPassword", "Account", new { code = item.UserId, email = item.Email }, null)
+                            @Html.ActionLink("Edit", "EditUser", "User", new { Id = item.UserId }, new { @class = "btn btn-info" })
+                            @Html.ActionLink("Delete", "RemoveUser", "User", new { Id = item.UserId }, new { @class = "btn btn-danger" })
+                            @Html.ActionLink("Change Password", "ResetPassword", "Account", new { code = item.UserId, email = item.Email }, new { @class = "btn btn-dark" })
                         </div>
                     </td>
-
                 </tr>
             }
         </table>

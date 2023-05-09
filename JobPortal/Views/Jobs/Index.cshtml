@@ -98,8 +98,8 @@
                     }
                     <td>
                         <div class="col gap-2 justify-content-center">
-                            @Html.ActionLink("Edit", "JobEdit", "Jobs", new { Id = item.Id }, null)
-                            @Html.ActionLink("Delete", "DeleteJob", "Jobs", new { Id = item.Id }, null)
+                            @Html.ActionLink("Edit", "JobEdit", "Jobs", new { Id = item.Id }, new { @class = "btn btn-info" })
+                            @Html.ActionLink("Delete", "DeleteJob", "Jobs", new { Id = item.Id }, new { @class = "btn btn-danger" })
                         </div>
                     </td>
                     @if (Request.IsAuthenticated && userManager.IsInRole(User.Identity.GetUserId(), "Admin"))

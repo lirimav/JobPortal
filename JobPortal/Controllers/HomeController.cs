@@ -7,6 +7,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using MailKit.Net.Smtp;
+using MimeKit;
+using System.Threading.Tasks;
+using MailKit.Security;
 
 namespace JobPortal.Controllers
 {
@@ -124,9 +128,46 @@ namespace JobPortal.Controllers
 
         public ActionResult Contact()
         {
-
-            return View();
+            return View(new ContactViewModel());
         }
+
+        [HttpPost]
+        public async Task<ActionResult> Contact(ContactViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var emailTo = "lirimav1@gmail.com";
+                var subject = "Job Portal Contact";
+                var message = $"From: {model.Name}\nEmail: {model.Email}\n\n{model.Message}";
+
+                await SendMail(emailTo, subject, message);
+
+                ViewBag.Success = true;
+            }
+
+            return View(model);
+        }
+
+        public async Task SendMail(string emailTo, string subject, string message)
+        {
+            var messageObj = new MimeMessage();
+            messageObj.From.Add(new MailboxAddress("Job Portal", "lirimav1@gmail.com"));
+            messageObj.To.Add(new MailboxAddress("", emailTo));
+            messageObj.Subject = subject;
+            messageObj.Body = new TextPart("plain")
+            {
+                Text = message
+            };
+
+            using (var client = new SmtpClient())
+            {
+                await client.ConnectAsync("smtp.gmail.com", 465, SecureSocketOptions.SslOnConnect);
+                await client.AuthenticateAsync("sartechcontact4", "mjsvjbajeodckrio");
+                await client.SendAsync(messageObj);
+                await client.DisconnectAsync(true);
+            }
+        }
+
 
         [HttpPost]
         public ActionResult ApplyForJob(int jobId)
@@ -141,7 +182,7 @@ namespace JobPortal.Controllers
             }
             else if(userManager.IsInRole(currentUser.GetUserId(), "Admin") || userManager.IsInRole(currentUser.GetUserId(), "Employer"))
             {
-                return RedirectToAction("Index", "JobApplication");
+                return RedirectToAction("Index", "Jobs");
             }
             else
             {
