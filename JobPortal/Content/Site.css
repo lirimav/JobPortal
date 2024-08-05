@@ -156,3 +156,6 @@ a{
 .editP:hover a {
     color: white;
 }
+.jobsBtn {
+    display: flex !important;
+}

@@ -11,6 +11,7 @@ using Microsoft.Owin.Security;
 using JobPortal.Models;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Data.Entity;
+using System.Web.Configuration;
 
 namespace JobPortal.Controllers
 {

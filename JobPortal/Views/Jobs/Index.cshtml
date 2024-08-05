@@ -70,8 +70,8 @@
                         @{var Name = context.Categories.FirstOrDefault(c => c.Id == item.CategoriesId);}
                         @Name.Name
                     </td>
-                    <td>
-                        @item.InsertedOn.ToString("dd MMMM yyyy HH:mm")
+                    <td style="white-space: nowrap;">
+                        @item.InsertedOn.ToString("d")
                     </td>
                     <td>
                         @item.ExpirationDate.ToString("d")
@@ -97,7 +97,7 @@
                         </td>
                     }
                     <td>
-                        <div class="col gap-2 justify-content-center">
+                        <div class="gap-2 justify-content-center" style="display: flex;">
                             @Html.ActionLink("Edit", "JobEdit", "Jobs", new { Id = item.Id }, new { @class = "btn btn-info" })
                             @Html.ActionLink("Delete", "DeleteJob", "Jobs", new { Id = item.Id }, new { @class = "btn btn-danger" })
                         </div>

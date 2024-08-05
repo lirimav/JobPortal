@@ -57,15 +57,7 @@ namespace JobPortal.Controllers
 
             return View(lista);
 
-            /*var currentUser = User.Identity;
-            var userStore = new UserStore<ApplicationUser>(context);
-            var userManager = new UserManager<ApplicationUser>(userStore);
-
-            var userId = User.Identity.GetUserId();
-
-            var jobApplications = context.JobApplication.Where(ja => ja.ClientId == userId).Include(ja => ja.Jobs).ToList();
-
-            return View(jobApplications);*/
+            
         }
     }
 }

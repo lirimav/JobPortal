@@ -186,7 +186,7 @@ namespace JobPortal.Controllers
             var jobfromdb = context.Jobs.Where(x => x.Id == Id).SingleOrDefault();
             var jobApplications = context.JobApplication.Where(ja => ja.JobsId == Id).ToList();
 
-            // Delete all the job applications related to the job being deleted
+            // --Delete all the job applications related to the job being deleted--
             foreach (var jobApplication in jobApplications)
             {
                 context.JobApplication.Remove(jobApplication);
@@ -207,7 +207,6 @@ namespace JobPortal.Controllers
                 foreach(var eachjob in expiredJobs) { 
                     var jobApplications = context.JobApplication.Where(ja => ja.JobsId == eachjob.Id).ToList();
 
-                    // Delete all the job applications related to the job being deleted
                     foreach (var jobApplication in jobApplications)
                     {
                         context.JobApplication.Remove(jobApplication);
